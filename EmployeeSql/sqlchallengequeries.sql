@@ -12,7 +12,7 @@ ORDER BY emp_no
 
 --2. List employees who were hired in 1986.
 
-SELECT * FROM employees
+SELECT first_name, last_name, hire_date FROM employees
 WHERE DATE_PART('year',hire_date) = 1986
 ORDER BY emp_no;
 
@@ -23,10 +23,9 @@ ORDER BY emp_no;
 
 SELECT dept_manager.dept_no, 
 departments.dept_name,
-employees.emp_no,
+dept_manager.emp_no,
 employees.last_name, 
-employees.first_name,
-
+employees.first_name
 FROM dept_manager
 LEFT JOIN departments
 ON dept_manager.dept_no = departments.dept_no
@@ -40,32 +39,32 @@ SELECT
 employees.emp_no,
 employees.last_name,
 employees.first_name,
-dept_emp.dept_no,
 departments.dept_name
 FROM employees 
 INNER JOIN dept_emp ON employees.emp_no=dept_emp.emp_no
 INNER JOIN departments ON departments.dept_no=dept_emp.dept_no
 order by emp_no;
 
--- 5. List all employees whose first name is "Hercules" and last names begin with "B."
+-- 5. List the first name, last name, and sex of each employee whose first name is Hercules and whose last name begins with the letter B
 
-SELECT * FROM employees
+SELECT first_name, last_name, gender FROM employees
 WHERE first_name = 'Hercules' AND last_name like 'B%';
 
 -- 6. List all employees in the Sales department, including their
--- employee number, last name, first name, and department name.
+-- employee number, last name, first name.
 
 SELECT 
 employees.emp_no, 
 employees.last_name, 
 employees.first_name,
-dept_emp.dept_no
+departments.dept_name
 FROM employees 
 LEFT JOIN dept_emp 
 ON employees.emp_no=dept_emp.emp_no
 INNER JOIN departments 
 ON departments.dept_no=dept_emp.dept_no
 WHERE departments.dept_name='Sales';
+
 
 -- 7. List all employees in the Sales and Development departments, including their 
 --employee number, last name, first name, and department name.
@@ -74,7 +73,7 @@ SELECT
 employees.emp_no, 
 employees.last_name, 
 employees.first_name,
-dept_emp.dept_no
+departments.dept_name
 FROM employees 
 LEFT JOIN dept_emp 
 ON employees.emp_no=dept_emp.emp_no
